@@ -1,0 +1,288 @@
+{
+  "Name": "Search For Specific Part Components",
+  "CreationDate": "2022-4-5",
+  "Commands": [
+    {
+      "Command": "csvReadArray",
+      "Target": "o_upload_bomstructure_cupholder.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${count} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtBPart_Key",
+      "Value": "${myCSV[${count}][0]} Rev ${myCSV[${count}][1]}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=fltBPart_KeyLink",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "10000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=SubmitLink",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "1",
+      "Value": "checkRow",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var collection = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = collection.item(0);\nvar rowsQty = bomTable.rows.length;\nreturn rowsQty",
+      "Value": "rowsNumbers",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${rowsNumbers} > ${checkRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var collection = document.getElementsByClassName(\"StandardGrid\"); // Crear coleccion de objetos donde viene la tabla\nvar bomTable = collection.item(0); //Crear un objeto unico para manipular la tabla.\nvar textToSearch = bomTable.rows[${checkRow}].innerText;\nvar componentToSearch = \"ARMREST-KNEE\";\n\nif (textToSearch.search(componentToSearch)>0) {\n  return textToSearch;\n}\nelse {\n  return 0;\n} \n\n",
+      "Value": "armrestCheck",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var collection = document.getElementsByClassName(\"StandardGrid\"); // Crear coleccion de objetos donde viene la tabla\nvar bomTable = collection.item(0); //Crear un objeto unico para manipular la tabla.\nvar textToSearch = bomTable.rows[${checkRow}].innerText;\nvar componentToSearch = \"MID BOLSTER ASSY\";\n\nif (textToSearch.search(componentToSearch)>0) {\n  return textToSearch;\n}\nelse {\n  return 0;\n} \n\n",
+      "Value": "midbolsterCheck",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var collection = document.getElementsByClassName(\"StandardGrid\"); // Crear coleccion de objetos donde viene la tabla\nvar bomTable = collection.item(0); //Crear un objeto unico para manipular la tabla.\nvar textToSearch = bomTable.rows[${checkRow}].innerText;\nvar componentToSearch = \"MID BLSTR OTR\";\n\nif (textToSearch.search(componentToSearch)>0) {\n  return textToSearch;\n}\nelse {\n  return 0;\n} \n\n",
+      "Value": "outerCheck",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var collection = document.getElementsByClassName(\"StandardGrid\"); // Crear coleccion de objetos donde viene la tabla\nvar bomTable = collection.item(0); //Crear un objeto unico para manipular la tabla.\nvar textToSearch = bomTable.rows[${checkRow}].innerText;\nvar componentToSearch = \"UPPER ASM\";\n\nif (textToSearch.search(componentToSearch)>0) {\n  return textToSearch;\n}\nelse {\n  return 0;\n} \n\n",
+      "Value": "upperCheck",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var collection = document.getElementsByClassName(\"StandardGrid\"); // Crear coleccion de objetos donde viene la tabla\nvar bomTable = collection.item(0); //Crear un objeto unico para manipular la tabla.\nvar textToSearch = bomTable.rows[${checkRow}].innerText;\nvar componentToSearch = \"LWR TR\";\nif (textToSearch.search(componentToSearch)>0) {\n  return textToSearch;\n}\nelse {\n  return 0;\n} \n\n",
+      "Value": "lowerCheck",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var collection = document.getElementsByClassName(\"StandardGrid\"); // Crear coleccion de objetos donde viene la tabla\nvar bomTable = collection.item(0); //Crear un objeto unico para manipular la tabla.\nvar textToSearch = bomTable.rows[${checkRow}].innerText;\nvar componentToSearch = \"PULL CUP\";\nif (textToSearch.search(componentToSearch)>0) {\n  return textToSearch;\n}\nelse {\n  return 0;\n} \n\n",
+      "Value": "pullcupCheck",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${armrestCheck} !=0",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${armrestCheck}",
+      "Value": "armrestNo",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${midbolsterCheck} !=0",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${midbolsterCheck}",
+      "Value": "midbolsterNo",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${outerCheck} !=0",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${outerCheck}",
+      "Value": "outerNo",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${upperCheck} !=0",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${upperCheck}",
+      "Value": "upperNo",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${lowerCheck} !=0",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${lowerCheck}",
+      "Value": "lowerNo",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${pullcupCheck} !=0",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${pullcupCheck}",
+      "Value": "pullcupNo",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return Number (${checkRow})+1;",
+      "Value": "checkRow",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][0]} Rev ${myCSV[${count}][1]}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${armrestNo}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${midbolsterNo}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${outerNo}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${upperNo}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${lowerNo}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${pullcupNo}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "csvSave",
+      "Target": "masterdatatest.csv",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
