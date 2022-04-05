@@ -1,0 +1,384 @@
+{
+  "Name": "Asignar workcenters a jobs desligados (los primeros 5 jobs)-1",
+  "CreationDate": "2022-4-5",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "!IMPORTANTE: Formato a Seguir: <Numero de parte>,<Revision>",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "!IMPORTANTE: Ventana en donde se tiene que correr",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Lectura del Archivo de Excel",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "masterdatatest.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "71",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Iniciamos loop principal donde accederemos a cada valor del CSV",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${count} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][0]} Rev ${myCSV[${count}][1]}",
+      "Value": "partNoToadd",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Escribimos en el campo de part No de la pantalla para filtrar los jobs",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtJMPart_Key",
+      "Value": "${partNoToAdd}",
+      "Description": ""
+    },
+    {
+      "Command": "select",
+      "Target": "id=fltJob_Status_Key",
+      "Value": "value=1729",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=fltJMPart_KeyImage",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div[1]/form/div[1]/table/tbody/tr[6]/td/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Script para evaluar si existe una tabla para trabajar.",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\n\nif (bomTable == null){\nreturn false;\n}\nelse {\nreturn true;\n}",
+      "Value": "tableExist",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${tableExist} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Script para evaluar la cantidad de filas para trabajar",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar jobsTable = table.item(0).tBodies[0];\nvar jobsTableRows = jobsTable.getElementsByTagName(\"tr\");\nvar jobsTableRowsQty = jobsTable.rows.length; //Regresar la cantidad total de filas en el archivo\nreturn jobsTableRowsQty;",
+      "Value": "rowsQty",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "if (${rowsQty}<5){\n  return ${rowsQty};\n}\nelse {\n  return 5;\n}",
+      "Value": "rowsQty",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "j",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${j} < ${rowsQty}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Script para evaluar si debemos de entrar a esa fila o no",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar jobsTable = table.item(0).tBodies[0];\nvar jobsTableRows = jobsTable.getElementsByTagName(\"tr\");\nvar selectedRowCells = jobsTableRows.item(0).getElementsByTagName(\"td\");\n\n\nif ((selectedRowCells.item(10).getElementsByTagName(\"a\").item(0).getInnerHTML()) ==\"New\"){\nreturn \"Y\";\n}\nelse {\nreturn \"N\";\n}",
+      "Value": "rowStatus",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${rowStatus} == \"Y\"",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div[1]/form/table/tbody/tr[1]/td[11]/a",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "APARTIR DE AQUI YA ENTRA A CADA JOB QUE ESTE COMO NEW",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar jobsTable = table.item(0).tBodies[0];\nvar jobsTableRows = jobsTable.getElementsByTagName(\"tr\");\nvar jobsTableRowsQty = jobsTable.rows.length; //Regresar la cantidad total de filas en el archivo\nreturn jobsTableRowsQty;",
+      "Value": "operationRowsQty",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${operationRowsQty}",
+      "Value": "k",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar jobsTable = table.item(0).tBodies[0];\nvar jobsTableRows = jobsTable.getElementsByTagName(\"tr\");\nvar selectedRowCells = jobsTableRows.item(${k}-1).getElementsByTagName(\"td\");\n\nfunction convertRgb(rgb) {\n  // This will choose the correct separator, if there is a \",\" in your value it will use a comma, otherwise, a separator will not be used.\n  var separator = rgb.indexOf(\",\") > -1 ? \",\" : \" \";\n\n\n  // This will convert \"rgb(r,g,b)\" into [r,g,b] so we can use the \"+\" to convert them back to numbers before using toString \n  rgb = rgb.substr(4).split(\")\")[0].split(separator);\n\n  // Here we will convert the decimal values to hexadecimal using toString(16)\n  var r = (+rgb[0]).toString(16),\n    g = (+rgb[1]).toString(16),\n    b = (+rgb[2]).toString(16);\n\n  if (r.length == 1)\n    r = \"0\" + r;\n  if (g.length == 1)\n    g = \"0\" + g;\n  if (b.length == 1)\n    b = \"0\" + b;\n\n  // The return value is a concatenation of \"#\" plus the rgb values which will give you your hex\n  return \"#\" + r + g + b;\n}\n\nif (convertRgb(selectedRowCells.item(9).style.backgroundColor) == \"#ffffbb\"){\nreturn \"Y\";\n}\nelse {\nreturn \"N\";\n}",
+      "Value": "operationRowStatus",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${operationRowStatus} == \"Y\"",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var rowToClick = Number(${k});\nreturn \"/html/body/form/div/form/table/tbody/tr[\" + rowToClick + \"]/td[8]/a/img\";",
+      "Value": "xpathToClickWorkcenter",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=${xpathToClickWorkcenter}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "APARTIR DE AQUI ESTAMOS TRABAJANDO CON EL IFRAME",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var iframe = document.getElementById(\"__Dialog_Iframe_Container_0\");\nvar elmnt = iframe.contentWindow.document.getElementsByClassName(\"StandardGrid\");\nvar revTable = elmnt.item(1);\nvar rows = revTable.getElementsByTagName(\"tr\")\nvar rowsCount = 0;\nvar selectedRow = 0;\nvar idToClick= \"PickerOption_\";\n\nfor (i=0;i<rows.length;i++){\n    rowsCount++;\n}\n\nreturn rowsCount;\n",
+      "Value": "iFrameRowsCount",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "l",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${l} < ${iFrameRowsCount}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var iframe = document.getElementById(\"__Dialog_Iframe_Container_0\");\nvar elmnt = iframe.contentWindow.document.getElementsByClassName(\"StandardGrid\");\nvar revTable = elmnt.item(1);\nvar rows = revTable.getElementsByTagName(\"tr\")\nrows.item(0).click();\n",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "4000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=${xpathToClickWorkcenter}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${l})+1;",
+      "Value": "l",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "TERMINAR DE ASIGNAR LOS WORKCENTERS",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/form/div/table[1]/tbody/tr/td[2]/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/form/div/table[1]/tbody/tr/td[1]/ul[1]/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "4000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${j})+1;",
+      "Value": "j",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "====FIN DEL MACRO",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "====FIN DEL MACRO",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
