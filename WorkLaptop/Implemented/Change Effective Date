@@ -1,0 +1,160 @@
+{
+  "Name": "Change Effective Date",
+  "CreationDate": "2022-4-5",
+  "Commands": [
+    {
+      "Command": "onError",
+      "Target": "#goto",
+      "Value": "NOTIFICACION_ERROR",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "ACTUALIZANDO FECHAS EFECTIVAS",
+      "Value": "#shownotification",
+      "Description": ""
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "masterdatatest.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "i",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${i} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "true",
+      "Value": "!errorIgnore",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtPOPart",
+      "Value": "${myCSV[${i}][0]} Rev ${myCSV[${i}][1]}",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=SubmitLink",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "linkText=${myCSV[${i}][0]} Rev ${myCSV[${i}][1]}",
+      "Value": "",
+      "Targets": [
+        "linkText=16976091 Rev 001",
+        "xpath=/html/body/div/table/thead/tr/th/table/tbody/tr/td[2]/span/a",
+        "xpath=//th/table/tbody/tr/td[2]/span/a",
+        "css=body > div.BodyWrapper > table > thead > tr:nth-child(1) > th > table > tbody > tr > td:nth-child(2) > span > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtRevision_Expiration_Date_dte",
+      "Value": "${myCSV[${i}][3]}",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div/table/tbody/tr/td[2]/ul/li[2]/span",
+      "Value": "",
+      "Targets": [
+        "xpath=/html/body/div/table/tbody/tr/td[2]/ul/li[2]/span",
+        "xpath=//td[2]/ul/li[2]/span",
+        "css=body > div.BodyWrapper > table > tbody > tr > td.Center > ul:nth-child(1) > li.c > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtPOPart",
+      "Value": "${myCSV[${i}][0]} Rev ${myCSV[${i}][2]}",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=SubmitLink",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "linkText=${myCSV[${i}][0]} Rev ${myCSV[${i}][2]}",
+      "Value": "",
+      "Targets": [
+        "linkText=16976091 Rev 001",
+        "xpath=/html/body/div/table/thead/tr/th/table/tbody/tr/td[2]/span/a",
+        "xpath=//th/table/tbody/tr/td[2]/span/a",
+        "css=body > div.BodyWrapper > table > thead > tr:nth-child(1) > th > table > tbody > tr > td:nth-child(2) > span > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtRevision_Effective_Date_dte_RQD",
+      "Value": "${myCSV[${i}][3]}",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div/table/tbody/tr/td[2]/ul/li[2]/span",
+      "Value": "",
+      "Targets": [
+        "xpath=/html/body/div/table/tbody/tr/td[2]/ul/li[2]/span",
+        "xpath=//td[2]/ul/li[2]/span",
+        "css=body > div.BodyWrapper > table > tbody > tr > td.Center > ul > li.c > span"
+      ],
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${i})+1;",
+      "Value": "i",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "FECHAS EFECTIVAS ACTUALIZADAS",
+      "Value": "#shownotification",
+      "Description": ""
+    },
+    {
+      "Command": "label",
+      "Target": "NOTIFICACION_ERROR",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "ERROR AL ACTUALIZAR LAS FECHAS",
+      "Value": "#shownotification",
+      "Description": ""
+    },
+    {
+      "Command": "label",
+      "Target": "END",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
