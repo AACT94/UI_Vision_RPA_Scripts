@@ -1,0 +1,222 @@
+{
+  "Name": "Cancelar Jobs en Job Mass Update",
+  "CreationDate": "2022-4-5",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "!IMPORTANTE: Formato a Seguir: <Numero de parte>,<Revision>",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "!IMPORTANTE: Ventana en donde se tiene que correr",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Lectura del Archivo de Excel",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "kanban pendientes_2022_03_25.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Iniciamos loop principal donde accederemos a cada valor del CSV",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${count} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][0]} Rev ${myCSV[${count}][1]}",
+      "Value": "partNoToInactivate",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Escribimos en el campo de part No de la pantalla para filtrar los jobs",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtJMPart_Key",
+      "Value": "${partNoToInactivate}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=fltJMPart_KeyImage",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div[1]/form/div[1]/table/tbody/tr[6]/td/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Script para evaluar si existe una tabla para trabajar.",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\n\nif (bomTable == null){\nreturn false;\n}\nelse {\nreturn true;\n}",
+      "Value": "tableExist",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${tableExist} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Script para obtener la cantidad total de filas de la tabla",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\nvar rows = bomTable.getElementsByTagName(\"tr\")\nvar rowsCount = 0;\nvar selectedRow = 0;\nvar xpath = \"\";\n\nfor (i=0;i<rows.length;i++){\n    rowsCount++;\n}\n\n\nreturn rowsCount-1;",
+      "Value": "rowsCount",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Iniciamos un segundo loop con la variable j para acceder a todos los IDs individuales",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "j",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${j} < ${rowsCount}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\"); //Regresa una coleccion\nvar bomTable = table.item(0); //Seleccionamos el primer elemento ya que es donde viene table.\nvar rows = bomTable.getElementsByTagName(\"tr\") //Regresamos la coleccion de las filas de la tabla original\nvar rowToCheck = rows.item(Number (${j})+1); //Seleccionamos en cada ciclo una sila fila\nvar controlCells = rowToCheck.getElementsByClassName(\"GridControlCell\");\nvar statusControlCells = controlCells.item(2);\nvar idToChange = statusControlCells.getElementsByTagName(\"select\").item(0).getAttribute(\"id\");\nreturn idToChange;",
+      "Value": "idToChange",
+      "Description": ""
+    },
+    {
+      "Command": "select",
+      "Target": "id=${idToChange}",
+      "Value": "value=1733",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${j})+1;",
+      "Value": "j",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "====YA SELECCIONA LA NUEVA REVISION",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Damos click al boton de update para regresarnos",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div[1]/form/table[1]/tbody/tr/td[2]/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "====FIN DEL MACRO",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "====FIN DEL MACRO",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
