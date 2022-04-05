@@ -1,0 +1,138 @@
+{
+  "Name": "Reemplazo de componentes",
+  "CreationDate": "2022-4-5",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "PANTALLA DE PLEX: Bills of Materials",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "FORMATO ARCHIVO: <partNo><rev><nRev><Component><NewComponent>",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "upload_3_reemplazos_t1 mcm ip 26317.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${count} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][3]}",
+      "Value": "partToSearch",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtBPart_Key",
+      "Value": "${myCSV[${count}][0]} Rev ${myCSV[${count}][2]}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=fltBPart_KeyLink",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "10000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=SubmitLink",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\nvar rows = bomTable.getElementsByTagName(\"tr\")\nvar rowsCount = 0;\nvar selectedRow = 0;\n\nfor (i=0;i<rows.length;i++){\n    rowsCount++;\n}\n\n\nfor (i=0;i<rowsCount;i++){\n    if (rows.item(i).innerHTML.search(${partToSearch})>0){\n        selectedRow=i;\n    }\n}\n\nwindow.open(rows.item(selectedRow).getElementsByTagName(\"a\").item(0),\"_self\");",
+      "Value": "pathForBom",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "5000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtlstComponent_Part_Key",
+      "Value": "${myCSV[${count}][4]}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=lstComponent_Part_KeyImage",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/div[1]/table/tbody/tr/td[2]/ul[1]/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "selectFrame",
+      "Target": "index=1",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/form/table/tbody/tr[2]/td/table/tbody/tr/td/span[1]/ul/li[2]",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
