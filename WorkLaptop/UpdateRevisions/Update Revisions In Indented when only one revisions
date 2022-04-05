@@ -1,0 +1,168 @@
+{
+  "Name": "Update Revisions In Indented when only one revisions",
+  "CreationDate": "2022-4-5",
+  "Commands": [
+    {
+      "Command": "csvReadArray",
+      "Target": "masterdatatest.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "16",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${count} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][0]} Rev ${myCSV[${count}][2]}",
+      "Value": "partToChange",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][3]} Rev ${myCSV[${count}][4]}",
+      "Value": "partToSearch",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][3]} Rev ${myCSV[${count}][5]}",
+      "Value": "newRev",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtIPart_Key_RQD",
+      "Value": "${myCSV[${count}][0]}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=fltIPart_Key_RQDImage",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "5000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.getElementById(\"SubmitLink\").click();",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "====YA SELECCIONA LA NUEVA REVISION",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\nvar rows = bomTable.getElementsByTagName(\"tr\")\nvar rowsCount = 0;\nvar selectedRow = 0;\nvar xpath = \"\";\n\nfor (i=0;i<rows.length;i++){\n    rowsCount++;\n}\n\n\nfor (i=0;i<rowsCount;i++){\n    if (rows.item(i).innerHTML.search(${partToSearch})>0){\n        selectedRow=i;\n    }\n}\n\nxpath = \"/html/body/div[1]/table[2]/tbody/tr[\"+selectedRow+\"]/td/a[2]\";\n\nreturn xpath;",
+      "Value": "clickForChangingRev",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=${clickForChangingRev}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtlstComponent_Part_Key",
+      "Value": "${newRev}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=lstComponent_Part_KeyLink",
+      "Value": "${newRev}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/div[1]/table/tbody/tr/td[2]/ul[1]/li[2]/span",
+      "Value": "${newRev}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "selectFrame",
+      "Target": "index=1",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/form/table/tbody/tr[2]/td/table/tbody/tr/td/span[1]/ul/li[2]",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "5000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "====FIN DEL MACRO",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "====FIN DEL MACRO",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
