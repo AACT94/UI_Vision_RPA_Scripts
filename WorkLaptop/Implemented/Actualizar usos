@@ -1,0 +1,126 @@
+{
+  "Name": "Actualizar usos",
+  "CreationDate": "2022-4-5",
+  "Commands": [
+    {
+      "Command": "csvReadArray",
+      "Target": "upload_4_usos_t1 mcm ip 26317.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${count} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][3]}",
+      "Value": "partToSearch",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtBPart_Key",
+      "Value": "${myCSV[${count}][0]} Rev ${myCSV[${count}][2]}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=fltBPart_KeyLink",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "10000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=SubmitLink",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\nvar rows = bomTable.getElementsByTagName(\"tr\")\nvar rowsCount = 0;\nvar selectedRow = 0;\n\nfor (i=0;i<rows.length;i++){\n    rowsCount++;\n}\n\n\nfor (i=0;i<rowsCount;i++){\n    if (rows.item(i).innerHTML.search(${partToSearch})>0){\n        selectedRow=i;\n    }\n}\n\nif (selectedRow==1){\n  return \"/html/body/div[1]/form/table[2]/tbody/tr[1]/td[4]/a\";\n}\nelse if (selectedRow >1){\n  return \"/html/body/div[1]/form/table[2]/tbody/tr[\"+selectedRow+\"]/td[1]/a\";\n}",
+      "Value": "pathForBom",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=${pathForBom}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txttxtQuantity_DEC",
+      "Value": "${myCSV[${count}][5]}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/div[1]/table/tbody/tr/td[2]/ul[1]/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "selectFrame",
+      "Target": "index=1",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/form/table/tbody/tr[2]/td/table/tbody/tr/td/span[1]/ul/li[2]",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
