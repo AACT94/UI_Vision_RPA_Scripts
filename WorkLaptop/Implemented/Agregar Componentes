@@ -1,0 +1,150 @@
+{
+  "Name": "Agregar componentes",
+  "CreationDate": "2022-4-5",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "PANTALLA DE PLEX: Bills of Materials - Add",
+      "Value": "Tienes que entrar primero a la ventana de Bill Of Materials y dar click en el boton Add",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "FORMATO ARCHIVO: <partNo><nRev><Component><Ultima Revision><QTY>",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "y2_dr_um3 - nuevos numeros de parte_upload_addcomponent_v2.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${count} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][0]} Rev ${myCSV[${count}][1]}",
+      "Value": "partToAdd",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][2]} Rev ${myCSV[${count}][3]}",
+      "Value": "componentToAdd",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][4]}",
+      "Value": "quantityToAdd",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtlstPart_Key",
+      "Value": "${partToAdd}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=lstPart_KeyImage",
+      "Value": "pathForBom",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtlstComponent_Part_Key",
+      "Value": "${componentToAdd}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=lstComponent_Part_KeyImage",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txttxtQuantity_DEC",
+      "Value": "${quantityToAdd}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=lstPart_Operation_Key_RQDImage",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/div[1]/table/tbody/tr/td[2]/ul[1]/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "selectFrame",
+      "Target": "index=1",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/form/table/tbody/tr[2]/td/table/tbody/tr/td/span[1]/ul/li[2]",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
