@@ -1,0 +1,162 @@
+{
+  "Name": "Update Label in Actual and Previous Revisions",
+  "CreationDate": "2022-4-5",
+  "Commands": [
+    {
+      "Command": "csvReadArray",
+      "Target": "masterdatatest.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "77",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${count} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][0]}",
+      "Value": "partToChange",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][1]}",
+      "Value": "labelToAdd",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=fltPart_No_Customer_Part",
+      "Value": "${partToChange}",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div[1]/form/div/table/tbody/tr[3]/td[7]/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\nvar rows = bomTable.getElementsByTagName(\"tr\")\nvar rowsCount = 0;\nvar selectedRow = 0;\nvar xpath = \"\";\n\nfor (i=0;i<rows.length;i++){\n    rowsCount++;\n}\n\nvar xpath = \"/html/body/div[1]/table/tbody/tr[\" + (rowsCount-1) + \"]/td[5]/a\";\n\nreturn xpath;\n\n\n",
+      "Value": "lastRevToUpdate",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=${lastRevToUpdate}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "select",
+      "Target": "id=lstMasterLabel",
+      "Value": "value=${labelToAdd}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/form/div/table[1]/tbody/tr/td[2]/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\nvar rows = bomTable.getElementsByTagName(\"tr\")\nvar rowsCount = 0;\nvar selectedRow = 0;\nvar xpath = \"\";\n\nfor (i=0;i<rows.length;i++){\n    rowsCount++;\n}\n\nvar xpath = \"/html/body/div[1]/table/tbody/tr[\" + (rowsCount-2) + \"]/td[5]/a\";\n\nreturn xpath;\n\n\n",
+      "Value": "secondToLastRevToUpdate",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=${secondToLastRevToUpdate}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "select",
+      "Target": "id=lstMasterLabel",
+      "Value": "value=${labelToAdd}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/form/div/table[1]/tbody/tr/td[2]/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "5000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "====FIN DEL MACRO",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "====FIN DEL MACRO",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
