@@ -1,0 +1,258 @@
+{
+  "Name": "TEST_Extraer historicos",
+  "CreationDate": "2022-4-20",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "!IMPORTANTE: Ventana para ejecutar Script",
+      "Value": "Purchase Order",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "!IMPORTANTE: Formato del CSV",
+      "Value": "<Numero de parte>,<Rev>",
+      "Description": ""
+    },
+    {
+      "Command": "onError",
+      "Target": "#goto",
+      "Value": "NOTIFICACION_ERROR",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "CREANDO NUEVAS REVISIONES...",
+      "Value": "#shownotification",
+      "Description": ""
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "lista de numeros.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return window.location.href;",
+      "Value": "link",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "i",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${i} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "waitForElementVisible",
+      "Target": "id=txttxtPart_Key",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txttxtPart_Key",
+      "Value": "${myCSV[${i}][0]} Rev ${myCSV[${i}][1]}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "waitForElementVisible",
+      "Target": "id=txtPart_KeyImage",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtPart_KeyImage",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "let iFrame = document.getElementById(\"__Dialog_Iframe_Container_0\");\nlet iWindow = iFrame.contentWindow\nlet iDocument = iWindow.document\nlet checkBox = iDocument.getElementsByName(\"chkOption\");\nlet done = iDocument.getElementById(\"DoneButton\");\n\ncheckBox.item(0).click();\ndone.click();",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "select",
+      "Target": "id=lstBlanket",
+      "Value": "value=1",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div[1]/form/table/tbody/tr/td[4]/table/tbody/tr[9]/td[2]/ul/li[2]/span",
+      "Value": "",
+      "Targets": [
+        "linkText=16976091 Rev 001",
+        "xpath=/html/body/div/table/thead/tr/th/table/tbody/tr/td[2]/span/a",
+        "xpath=//th/table/tbody/tr/td[2]/span/a",
+        "css=body > div.BodyWrapper > table > thead > tr:nth-child(1) > th > table > tbody > tr > td:nth-child(2) > span > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "let table = document.getElementsByClassName(\"StandardGrid\").item(0);\nlet rows = table.getElementsByTagName(\"tr\");\n\nlet datesParsed = [];\nfor (let i = 1; i < (rows.length - 1);i++) {\n    let currentRow = rows.item(i);\n    let columns = currentRow.getElementsByTagName(\"td\");\n    datesParsed.push(Date.parse(columns.item(3).innerHTML));\n    datesParsed.push(i);\n}\n\nlet maxDate = Math.max(...datesParsed);\nlet maxDateIndex = datesParsed.indexOf(maxDate);\n\nreturn \"/html/body/div[1]/form/table[2]/tbody/tr[\" + (maxDateIndex + 1) +\"]/td[11]/a\";",
+      "Value": "xpathToClick",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=${xpathToClick}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "5000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "waitForElementVisible",
+      "Target": "id=flttxtRelease_Statuses",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtPart_Key",
+      "Value": "${myCSV[${i}][0]} Rev ${myCSV[${i}][1]}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=fltPart_KeyImage",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div[1]/form/table[2]/tbody/tr/td[2]/table/tbody/tr[3]/td[2]/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div[1]/form/table[3]/tbody/tr[1]/td[1]/a",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=/html/body/div[1]/form/table[2]/tbody[2]/tr/td[3]/a/font",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "let table = document.getElementsByClassName(\"StandardGrid\").item(0);\nlet rows = table.getElementsByTagName(\"tr\");\nlet stringValue = \"\";\nfor (let i = 1; i < rows.length; i++){\n    let currentRow = rows.item(i);\n    let currentColumn = currentRow.getElementsByTagName(\"td\");\n    stringValue += currentColumn.item(1).innerHTML + \"-\" + \n    currentColumn.item(2).innerHTML + \"-\" + currentColumn.item(0).innerHTML + \",\";\n}\n\nreturn stringValue.replace(/(\\r\\n|\\n|\\r)/gm, \"\")",
+      "Value": "historicalValues",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${i}][0]} Rev ${myCSV[${i}][1]}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${historicalValues}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "csvSave",
+      "Target": "lista de numeros.csv",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${i})+1;",
+      "Value": "i",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "window.open(${link},\"_self\");",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "LAS NUEVAS REVISIONES FUERON CREADAS",
+      "Value": "#shownotification",
+      "Description": ""
+    },
+    {
+      "Command": "label",
+      "Target": "NOTIFICACION_ERROR",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "ERROR AL CREAR NUEVAS REVISIONES",
+      "Value": "#shownotification",
+      "Description": ""
+    },
+    {
+      "Command": "label",
+      "Target": "END",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
