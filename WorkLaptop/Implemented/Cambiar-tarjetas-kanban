@@ -1,0 +1,228 @@
+{
+  "Name": "Cambiar tarjetas kanban",
+  "CreationDate": "2022-4-23",
+  "Commands": [
+    {
+      "Command": "onError",
+      "Target": "#goto",
+      "Value": "NOTIFICACION_ERROR",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "CREANDO NUEVAS REVISIONES...",
+      "Value": "#shownotification",
+      "Description": ""
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "kanban.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "950",
+      "Value": "i",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${i} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtPart",
+      "Value": "${myCSV[${i}][0]} Rev ${myCSV[${i}][1]}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=fltPartLink",
+      "Value": "",
+      "Targets": [
+        "xpath=/html/body/div/table/tbody/tr/td[2]/ul/li[2]/span",
+        "xpath=//td[2]/ul/li[2]/span",
+        "css=body > div.BodyWrapper > table > tbody > tr > td.Center > ul > li.c > span"
+      ],
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=SubmitLink",
+      "Value": "",
+      "Targets": [
+        "xpath=/html/body/div/table/tbody/tr/td[2]/ul/li[2]/span",
+        "xpath=//td[2]/ul/li[2]/span",
+        "css=body > div.BodyWrapper > table > tbody > tr > td.Center > ul > li.c > span"
+      ],
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "comment",
+      "Target": "Hasta este punto ya escribe el valor que queremos en",
+      "Value": "i",
+      "Description": ""
+    },
+    {
+      "Command": "waitForElementVisible",
+      "Target": "id=flttxtPart",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "/html/body/div[1]/form/table[2]/tbody/tr/td[2]/a",
+      "Value": "",
+      "Targets": [
+        "xpath=/html/body/div/table/tbody/tr/td[2]/ul/li[2]/span",
+        "xpath=//td[2]/ul/li[2]/span",
+        "css=body > div.BodyWrapper > table > tbody > tr > td.Center > ul > li.c > span"
+      ],
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "waitForElementVisible",
+      "Target": "id=txtPart_Operation_RQD",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "storeValue",
+      "Target": "id=txtPart_Operation_RQD",
+      "Value": "partNumberOperation",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtPart_RQD",
+      "Value": "${myCSV[${i}][0]} Rev ${myCSV[${i}][2]}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=Part_RQDLink",
+      "Value": "",
+      "Targets": [
+        "xpath=/html/body/div/table/tbody/tr/td[2]/ul/li[2]/span",
+        "xpath=//td[2]/ul/li[2]/span",
+        "css=body > div.BodyWrapper > table > tbody > tr > td.Center > ul > li.c > span"
+      ],
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtPart_Operation_RQD",
+      "Value": "${partNumberOperation}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=Part_Operation_RQDLink",
+      "Value": "",
+      "Targets": [
+        "xpath=/html/body/div/table/tbody/tr/td[2]/ul/li[2]/span",
+        "xpath=//td[2]/ul/li[2]/span",
+        "css=body > div.BodyWrapper > table > tbody > tr > td.Center > ul > li.c > span"
+      ],
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtThrough_Part_Operation_RQD",
+      "Value": "${partNumberOperation}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=Through_Part_Operation_RQDLink",
+      "Value": "",
+      "Targets": [
+        "xpath=/html/body/div/table/tbody/tr/td[2]/ul/li[2]/span",
+        "xpath=//td[2]/ul/li[2]/span",
+        "css=body > div.BodyWrapper > table > tbody > tr > td.Center > ul > li.c > span"
+      ],
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=//html/body/div[1]/table/tbody/tr/td[2]/ul[1]/li[2]/span",
+      "Value": "",
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${i})+1;",
+      "Value": "i",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": "Update Button In Part List"
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "LAS NUEVAS REVISIONES FUERON CREADAS",
+      "Value": "#shownotification",
+      "Description": ""
+    },
+    {
+      "Command": "label",
+      "Target": "NOTIFICACION_ERROR",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "ERROR AL CREAR NUEVAS REVISIONES",
+      "Value": "#shownotification",
+      "Description": ""
+    },
+    {
+      "Command": "label",
+      "Target": "END",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
