@@ -1,16 +1,16 @@
 {
-  "Name": "Actualizar usos",
-  "CreationDate": "2022-4-5",
+  "Name": "03B_Actualizar usos",
+  "CreationDate": "2022-4-28",
   "Commands": [
     {
       "Command": "csvReadArray",
-      "Target": "upload_4_usos_t1 mcm ip 26317.csv",
+      "Target": "x_upload_03_new usages_karina q.csv",
       "Value": "myCSV",
       "Description": ""
     },
     {
       "Command": "store",
-      "Target": "0",
+      "Target": "63",
       "Value": "count",
       "Description": ""
     },
@@ -39,8 +39,8 @@
       "Description": ""
     },
     {
-      "Command": "click",
-      "Target": "id=fltBPart_KeyLink",
+      "Command": "executeScript",
+      "Target": "let button = document.getElementById(\"fltBPart_KeyImage\");\nbutton.click();",
       "Value": "",
       "Description": ""
     },
@@ -77,7 +77,7 @@
     {
       "Command": "type",
       "Target": "id=txttxtQuantity_DEC",
-      "Value": "${myCSV[${count}][5]}",
+      "Value": "${myCSV[${count}][4]}",
       "Description": ""
     },
     {
