@@ -1,16 +1,16 @@
 {
-  "Name": "02_Actualizar estructura del BOM",
+  "Name": "02_Actualizar estructura del BOM_v2",
   "CreationDate": "2022-4-28",
   "Commands": [
     {
       "Command": "csvReadArray",
-      "Target": "x_upload_02_bom structures_karina q.csv",
+      "Target": "worksheet_bom structura finales sin mid - copy.csv",
       "Value": "myCSV",
       "Description": ""
     },
     {
       "Command": "store",
-      "Target": "13",
+      "Target": "300",
       "Value": "count",
       "Description": ""
     },
@@ -46,7 +46,7 @@
     },
     {
       "Command": "executeScript",
-      "Target": "let button = document.getElementById(\"fltIPart_Key_RQDImage\");\nbutton.click();",
+      "Target": "var button = document.getElementById(\"fltIPart_Key_RQDImage\");\n\nbutton.click();",
       "Value": "",
       "Description": ""
     },
