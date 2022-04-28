@@ -1,16 +1,16 @@
 {
-  "Name": "Actualizar estructura del BOM",
-  "CreationDate": "2022-4-5",
+  "Name": "02_Actualizar estructura del BOM",
+  "CreationDate": "2022-4-28",
   "Commands": [
     {
       "Command": "csvReadArray",
-      "Target": "upload_2_bomstructure_t1 mcm_ip - 26317.csv",
+      "Target": "x_upload_02_bom structures_karina q.csv",
       "Value": "myCSV",
       "Description": ""
     },
     {
       "Command": "store",
-      "Target": "0",
+      "Target": "13",
       "Value": "count",
       "Description": ""
     },
@@ -45,8 +45,8 @@
       "Description": ""
     },
     {
-      "Command": "click",
-      "Target": "id=fltIPart_Key_RQDImage",
+      "Command": "executeScript",
+      "Target": "let button = document.getElementById(\"fltIPart_Key_RQDImage\");\nbutton.click();",
       "Value": "",
       "Description": ""
     },
@@ -88,6 +88,18 @@
     },
     {
       "Command": "executeScript",
+      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\nvar rows = bomTable.getElementsByTagName(\"tr\")\nvar rowsCount = 0;\nvar selectedRow = 0;\nvar xpath = \"\";\nvar status = \"NA\"\n\nfor (i=0;i<rows.length;i++){\n    rowsCount++;\n}\n\n\nfor (i=0;i<rowsCount;i++){\n    if (rows.item(i).innerHTML.search(${partToSearch})>0){\n        status = \"OK\";\n    }\n}\n\nreturn status;",
+      "Value": "status",
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${status} == \"OK\"",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
       "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\nvar rows = bomTable.getElementsByTagName(\"tr\")\nvar rowsCount = 0;\nvar selectedRow = 0;\nvar xpath = \"\";\n\nfor (i=0;i<rows.length;i++){\n    rowsCount++;\n}\n\n\nfor (i=0;i<rowsCount;i++){\n    if (rows.item(i).innerHTML.search(${partToSearch})>0){\n        selectedRow=i;\n    }\n}\n\nxpath = \"/html/body/div[1]/table[2]/tbody/tr[\"+selectedRow+\"]/td/a[2]\";\n\nreturn xpath;",
       "Value": "clickForChangingRev",
       "Description": ""
@@ -111,9 +123,9 @@
       "Description": ""
     },
     {
-      "Command": "click",
-      "Target": "id=lstComponent_Part_KeyLink",
-      "Value": "${newRev}",
+      "Command": "executeScript",
+      "Target": "let button = document.getElementById(\"lstComponent_Part_KeyImage\");\nbutton.click();",
+      "Value": "",
       "Description": ""
     },
     {
@@ -130,7 +142,7 @@
     },
     {
       "Command": "pause",
-      "Target": "1000",
+      "Target": "2000",
       "Value": "",
       "Description": ""
     },
@@ -147,15 +159,21 @@
       "Description": ""
     },
     {
-      "Command": "executeScript_Sandbox",
-      "Target": "return Number (${count})+1;",
-      "Value": "count",
-      "Description": ""
-    },
-    {
       "Command": "pause",
       "Target": "5000",
       "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
       "Description": ""
     },
     {
