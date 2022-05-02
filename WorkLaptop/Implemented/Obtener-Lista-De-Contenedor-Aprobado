@@ -1,0 +1,138 @@
+{
+  "Name": "!!!Agregar contenedor aprobado",
+  "CreationDate": "2022-5-2",
+  "Commands": [
+    {
+      "Command": "csvReadArray",
+      "Target": "upload_new revisions.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return window.location.href",
+      "Value": "processRoutingLink",
+      "Description": "Al logear de nuevo en PLEX es necesario cambiar este hiperlink ya que se renueva con cada sesion."
+    },
+    {
+      "Command": "store",
+      "Target": "12",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${count} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][0]} Rev ${myCSV[${count}][1]}",
+      "Value": "partToSearch",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtPOPart",
+      "Value": "${partToSearch}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/div[1]/form/div/table/tbody/tr[8]/td/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "4000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=${myCSV[${count}][0]} Rev ${myCSV[${count}][1]}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "4000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "//Devuelve una coleccion de elementos donde esta el link que queremos dar click\nvar columnApprovedContainerTypes = document.getElementsByClassName(\"Section AltColor\");\n\n//Devuelve la exacta posicion en donde esta el link que queremos dar\nvar rowApprovedContainerTypes = columnApprovedContainerTypes.item(3);\n\n//Obtenemos todos los tags que sean <a> en forma de coleccion\nvar collectionLinksApprovedContainerTypes = rowApprovedContainerTypes.getElementsByTagName(\"a\");\n\n//Seleccionamos especificamente el anchor para abrir la nueva ventana emergente\nvar linkApprovedContainerTypes = collectionLinksApprovedContainerTypes.item(0);\n\n//Extramos el link del elemento anchor, nos devuelve un texto\nvar textLinkApprovedContainerTypes = linkApprovedContainerTypes.getAttribute(\"href\");\n\n//Separamos la cadena de texto para obtener el link que deseamos sin tomar en cuenta el resto.\nvar textLinkApprovedContainerTypesSeparated= textLinkApprovedContainerTypes.split(\"'\");\n\n//Extramos exactamente la cadena de texto que ocupamos\nvar linkToNewApprovedContainerTypesScreen = textLinkApprovedContainerTypesSeparated[1];\n\nreturn linkToNewApprovedContainerTypesScreen;\n\n",
+      "Value": "approvedContainerTypeScreen",
+      "Description": ""
+    },
+    {
+      "Command": "open",
+      "Target": "${approvedContainerTypeScreen}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=SubmitLink",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][0]} Rev ${myCSV[${count}][1]}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "let mainTable = document.getElementById(\"ProgramTable\");\nlet rows = mainTable.getElementsByTagName(\"tr\");\nlet container = \"\";\n\n\nfor (let i = 1; i < rows.length; i++){\n\n  if(rows.item(i).getElementsByTagName(\"td\").item(1).getElementsByTagName(\"input\").item(0).checked){\n\n  \t\tcontainer += rows.item(i).getElementsByTagName(\"td\").item(0).textContent;\n\n\t\tif (rows.item(i).getElementsByTagName(\"td\").item(1).getElementsByTagName(\"input\").item(0).checked){\n\t\t\tcontainer +=  \",OK\";\n\t\t\t}\n\t\telse {\n\t\tcontainer +=  \",NA\";\n\t\t}\n\t\t\n\t\tif (rows.item(i).getElementsByTagName(\"td\").item(2).getElementsByTagName(\"input\").item(0).checked){\n\t\t\tcontainer +=  \",OK\";\n\t\t\t}\n\t\telse {\n\t\tcontainer +=  \",NA\";\n\t\t}\n\n\t\tif (rows.item(i).getElementsByTagName(\"td\").item(3).getElementsByTagName(\"input\").item(0).checked){\n\t\t\tcontainer +=  \",OK\";\n\t\t\t}\n\t\telse {\n\t\tcontainer +=  \",NA\";\n\t\t}\n\n\t\tif (rows.item(i).getElementsByTagName(\"td\").item(4).getElementsByTagName(\"input\").item(0).checked){\n\t\t\tcontainer +=  \",OK,\";\n\t\t\t}\n\t\telse {\n\t\tcontainer +=  \",NA,\";\n\t\t}\n\t\t\n\t\tcontainer += rows.item(i).getElementsByTagName(\"td\").item(5).getElementsByTagName(\"input\").item(0).value + \",\";\n\n\n\t}\n}\nreturn container;",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "csvSave",
+      "Target": "upload_new revisions.csv",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "window.open(${processRoutingLink},\"_self\");",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
