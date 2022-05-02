@@ -1,6 +1,6 @@
 {
-  "Name": "Crear nuevas revisiones",
-  "CreationDate": "2022-4-5",
+  "Name": "01_Crear nuevas revisiones",
+  "CreationDate": "2022-5-2",
   "Commands": [
     {
       "Command": "comment",
@@ -28,7 +28,7 @@
     },
     {
       "Command": "csvReadArray",
-      "Target": "upload_newrevs_t1 mcm_ip - 26317.csv",
+      "Target": "upload_new revisions.csv",
       "Value": "myCSV",
       "Description": ""
     },
