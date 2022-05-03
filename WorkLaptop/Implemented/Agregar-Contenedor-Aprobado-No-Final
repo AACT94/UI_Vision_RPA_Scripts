@@ -1,0 +1,156 @@
+{
+  "Name": "Agregar contenedor aprobado Finales",
+  "CreationDate": "2022-5-3",
+  "Commands": [
+    {
+      "Command": "csvReadArray",
+      "Target": "upload_agregar contenedors numeros finales.csv",
+      "Value": "myCSV",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return window.location.href",
+      "Value": "processRoutingLink",
+      "Description": "Al logear de nuevo en PLEX es necesario cambiar este hiperlink ya que se renueva con cada sesion."
+    },
+    {
+      "Command": "store",
+      "Target": "5",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${count} < ${!csvReadMaxRow}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][0]} Rev ${myCSV[${count}][2]}",
+      "Value": "partToSearch",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][3]}",
+      "Value": "containerType",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${myCSV[${count}][8]}",
+      "Value": "quantity",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtPOPart",
+      "Value": "${partToSearch}",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/div[1]/form/div/table/tbody/tr[8]/td/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "4000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=${myCSV[${count}][0]} Rev ${myCSV[${count}][2]}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "4000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "//Devuelve una coleccion de elementos donde esta el link que queremos dar click\nvar columnApprovedContainerTypes = document.getElementsByClassName(\"Section AltColor\");\n\n//Devuelve la exacta posicion en donde esta el link que queremos dar\nvar rowApprovedContainerTypes = columnApprovedContainerTypes.item(3);\n\n//Obtenemos todos los tags que sean <a> en forma de coleccion\nvar collectionLinksApprovedContainerTypes = rowApprovedContainerTypes.getElementsByTagName(\"a\");\n\n//Seleccionamos especificamente el anchor para abrir la nueva ventana emergente\nvar linkApprovedContainerTypes = collectionLinksApprovedContainerTypes.item(0);\n\n//Extramos el link del elemento anchor, nos devuelve un texto\nvar textLinkApprovedContainerTypes = linkApprovedContainerTypes.getAttribute(\"href\");\n\n//Separamos la cadena de texto para obtener el link que deseamos sin tomar en cuenta el resto.\nvar textLinkApprovedContainerTypesSeparated= textLinkApprovedContainerTypes.split(\"'\");\n\n//Extramos exactamente la cadena de texto que ocupamos\nvar linkToNewApprovedContainerTypesScreen = textLinkApprovedContainerTypesSeparated[1];\n\nreturn linkToNewApprovedContainerTypesScreen;\n\n",
+      "Value": "approvedContainerTypeScreen",
+      "Description": ""
+    },
+    {
+      "Command": "open",
+      "Target": "${approvedContainerTypeScreen}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=flttxtContainerType",
+      "Value": "${containerType}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/div[1]/form/div[1]/table/tbody/tr[3]/td[4]/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "4000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "let mainTable = document.getElementById(\"ProgramTable\");\nlet rows = mainTable.getElementsByTagName(\"tr\");\n\n//APPROVED CHECK\nrows.item(1).getElementsByTagName(\"td\").item(1).getElementsByTagName(\"input\").item(0).checked = true;\n\n//DEFAULT CHECK\nrows.item(1).getElementsByTagName(\"td\").item(2).getElementsByTagName(\"input\").item(0).checked = true;\n\n//ACTIVE CHECK\nrows.item(1).getElementsByTagName(\"td\").item(3).getElementsByTagName(\"input\").item(0).checked = true;\n\n//ACTIVE CHECK\nrows.item(1).getElementsByTagName(\"td\").item(5).getElementsByTagName(\"input\").item(0).checked = true;\n\n\n//FILL QTY FIELD\nrows.item(1).getElementsByTagName(\"td\").item(5).getElementsByTagName(\"input\").item(0).value = ${quantity}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=/html/body/div[1]/table/tbody/tr/td[2]/ul/li[2]/span",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number (${count})+1;",
+      "Value": "count",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "window.open(${processRoutingLink},\"_self\");",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
