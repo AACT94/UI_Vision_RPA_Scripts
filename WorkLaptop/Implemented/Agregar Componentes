@@ -1,6 +1,6 @@
 {
   "Name": "04_Agregar componente en el BOM",
-  "CreationDate": "2022-4-18",
+  "CreationDate": "2022-5-6",
   "Commands": [
     {
       "Command": "comment",
@@ -16,13 +16,13 @@
     },
     {
       "Command": "csvReadArray",
-      "Target": "t1_mcm_dr_um3_upload_07_agregar carton al bom.csv",
+      "Target": "upload_01_bom structure.csv",
       "Value": "myCSV",
       "Description": ""
     },
     {
       "Command": "store",
-      "Target": "164",
+      "Target": "56",
       "Value": "count",
       "Description": ""
     },
@@ -57,9 +57,9 @@
       "Description": ""
     },
     {
-      "Command": "click",
-      "Target": "id=lstPart_KeyImage",
-      "Value": "pathForBom",
+      "Command": "executeScript",
+      "Target": "var button = document.getElementById(\"lstPart_KeyLink\");\nbutton.click();",
+      "Value": "",
       "Description": ""
     },
     {
@@ -69,14 +69,20 @@
       "Description": ""
     },
     {
-      "Command": "click",
-      "Target": "id=lstPart_Operation_Key_RQDImage",
+      "Command": "executeScript",
+      "Target": "var button = document.getElementById(\"lstPart_Operation_Key_RQDLink\");\nbutton.click();",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
       "Value": "",
       "Description": ""
     },
     {
       "Command": "executeScript",
-      "Target": "let iframe = document.getElementById(\"__Dialog_Iframe_Container_1\");\nlet iWindow = iframe.contentWindow;\nlet iDocument = iWindow.document;\nlet mainContainer = iDocument.getElementById(\"ModalPickerSpan\");\n\nif (mainContainer != null){\n\tlet rows = mainContainer.getElementsByTagName(\"tr\");\n\tlet lastRow = 0;\n\n\tfor (i=0;i<rows.length;i++){\n   \tlastRow++;\n\t}\n\n\trows.item(lastRow-1).click();\n}\n\nelse {\nconsole.log(\"no container\");\n}\n",
+      "Target": "let iframe = document.getElementById(\"__Dialog_Iframe_Container_1\");\n\n\nif (iframe != null){ \nlet iWindow = iframe.contentWindow;\nlet iDocument = iWindow.document;\n\n\nif (iDocument != null){\n  \tlet mainContainer = iDocument.getElementById(\"ModalPickerSpan\");\n\tlet rows = mainContainer.getElementsByTagName(\"tr\");\n\tlet lastRow = 0;\n\n\tfor (i=0;i<rows.length;i++){\n   \tlastRow++;\n\t}\n\n\trows.item(lastRow-1).click();\n}\n\nelse {\nconsole.log(\"no container\");\n}\n}",
       "Value": "",
       "Description": ""
     },
@@ -93,8 +99,8 @@
       "Description": ""
     },
     {
-      "Command": "click",
-      "Target": "id=lstComponent_Part_KeyImage",
+      "Command": "executeScript",
+      "Target": "var button = document.getElementById(\"lstComponent_Part_KeyLink\");\nbutton.click();",
       "Value": "",
       "Description": ""
     },
@@ -111,38 +117,26 @@
       "Description": ""
     },
     {
-      "Command": "pause",
-      "Target": "2000",
-      "Value": "",
-      "Description": ""
-    },
-    {
       "Command": "click",
       "Target": "xpath=/html/body/div[1]/table/tbody/tr/td[2]/ul[1]/li[2]/span",
       "Value": "",
       "Description": ""
     },
     {
-      "Command": "selectFrame",
-      "Target": "index=1",
-      "Value": "",
-      "Description": ""
-    },
-    {
       "Command": "pause",
       "Target": "2000",
       "Value": "",
       "Description": ""
     },
     {
-      "Command": "clickAndWait",
-      "Target": "xpath=/html/body/form/table/tbody/tr[2]/td/table/tbody/tr/td/span[1]/ul/li[2]",
+      "Command": "executeScript",
+      "Target": "let iframes = document.getElementsByTagName(\"iframe\");\nlet iWindow = iframes.item(1).contentWindow;\nlet iDocument = iWindow.document;\nlet button = iDocument.querySelector('[title = \"Yes\"]');\nbutton.click();",
       "Value": "",
       "Description": ""
     },
     {
       "Command": "pause",
-      "Target": "1000",
+      "Target": "6000",
       "Value": "",
       "Description": ""
     },
