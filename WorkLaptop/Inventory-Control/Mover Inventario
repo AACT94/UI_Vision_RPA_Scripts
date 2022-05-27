@@ -1,6 +1,6 @@
 {
-  "Name": "Mover inventario",
-  "CreationDate": "2022-4-5",
+  "Name": "!!!Mover Inventario",
+  "CreationDate": "2022-5-27",
   "Commands": [
     {
       "Command": "onError",
@@ -16,13 +16,13 @@
     },
     {
       "Command": "csvReadArray",
-      "Target": "masterdatatest.csv",
+      "Target": "upload_mover inventario.csv",
       "Value": "myCSV",
       "Description": ""
     },
     {
       "Command": "store",
-      "Target": "0",
+      "Target": "86",
       "Value": "i",
       "Description": ""
     },
