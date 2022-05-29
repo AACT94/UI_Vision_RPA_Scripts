@@ -1,16 +1,16 @@
 {
-  "Name": "02_Actualizar estructura del BOM_v2",
-  "CreationDate": "2022-4-28",
+  "Name": "02_Actualizar estructura del BOM (No autoskip)",
+  "CreationDate": "2022-5-29",
   "Commands": [
     {
       "Command": "csvReadArray",
-      "Target": "worksheet_bom structura finales sin mid - copy.csv",
+      "Target": "upload_08_bom structure_console_wips to fg.csv",
       "Value": "myCSV",
       "Description": ""
     },
     {
       "Command": "store",
-      "Target": "300",
+      "Target": "102",
       "Value": "count",
       "Description": ""
     },
@@ -28,7 +28,7 @@
     },
     {
       "Command": "store",
-      "Target": "${myCSV[${count}][3]} Rev ${myCSV[${count}][4]}",
+      "Target": "${myCSV[${count}][3]} Rev",
       "Value": "partToSearch",
       "Description": ""
     },
@@ -83,18 +83,6 @@
     {
       "Command": "comment",
       "Target": "====YA SELECCIONA LA NUEVA REVISION",
-      "Value": "",
-      "Description": ""
-    },
-    {
-      "Command": "executeScript",
-      "Target": "var table = document.getElementsByClassName(\"StandardGrid\");\nvar bomTable = table.item(0);\nvar rows = bomTable.getElementsByTagName(\"tr\")\nvar rowsCount = 0;\nvar selectedRow = 0;\nvar xpath = \"\";\nvar status = \"NA\"\n\nfor (i=0;i<rows.length;i++){\n    rowsCount++;\n}\n\n\nfor (i=0;i<rowsCount;i++){\n    if (rows.item(i).innerHTML.search(${partToSearch})>0){\n        status = \"OK\";\n    }\n}\n\nreturn status;",
-      "Value": "status",
-      "Description": ""
-    },
-    {
-      "Command": "if_v2",
-      "Target": "${status} == \"OK\"",
       "Value": "",
       "Description": ""
     },
@@ -161,12 +149,6 @@
     {
       "Command": "pause",
       "Target": "5000",
-      "Value": "",
-      "Description": ""
-    },
-    {
-      "Command": "end",
-      "Target": "",
       "Value": "",
       "Description": ""
     },
